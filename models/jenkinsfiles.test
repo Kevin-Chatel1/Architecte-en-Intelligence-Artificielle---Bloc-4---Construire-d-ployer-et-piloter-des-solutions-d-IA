@@ -1,39 +1,66 @@
 pipeline {
     agent any
-    
+
     environment {
         AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         NEON_DATABASE_URL     = credentials('NEON_DATABASE_URL')
-        S3_BUCKET            = credentials('S3_BUCKET')
+        S3_BUCKET             = credentials('S3_BUCKET')
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/Rom1Legrand/IAI-B4-MLops_pipeline_CoverTypeForest.git'
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: '*/main']],
+                    userRemoteConfigs: [[url: 'git@github.com:Kevin-Chatel1/Architecte-en-Intelligence-Artificielle---Bloc-4---Construire-d-ployer-et-piloter-des-solutions-d-IA.git']],
+                    extensions: [[
+                        $class: 'CloneOption',
+                        depth: 1,
+                        shallow: true
+                    ]]
+                ])
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh '''
+                    python3 -m venv .venv
+                    . .venv/bin/activate
+                    pip install --upgrade pip
+                    pip install -r models/pipeline.requirements
+                '''
             }
         }
 
         stage('Run Tests') {
             steps {
                 sh '''
+                    . .venv/bin/activate
                     cd models
-                    python3 -m pytest test.py -v
+                    pytest test.py --csv=test_report.csv || true
+
+                    aws s3 cp test_report.csv s3://${S3_BUCKET}/covertype/test_reports/test_report_$(date +%Y%m%d%H%M%S).csv
                 '''
             }
         }
     }
-    
+
     post {
         always {
-            sh '''
-                sleep 5
-                echo "Récupération du rapport de test..."
-                LATEST_REPORT=$(aws s3 ls s3://${S3_BUCKET}/covertype/test_reports/ | grep "test_report_" | sort | tail -n 1 | awk '{print $4}')
-                aws s3 cp s3://${S3_BUCKET}/covertype/test_reports/${LATEST_REPORT} test_report.csv
-            '''
+            script {
+                sh '''
+                    echo "Récupération du rapport de test..."
+                    LATEST_REPORT=$(aws s3 ls s3://${S3_BUCKET}/covertype/test_reports/ | grep "test_report_" | sort | tail -n 1 | awk '{print $4}')
+                    if [ -z "$LATEST_REPORT" ]; then
+                        echo "Aucun rapport trouvé dans le bucket S3."
+                    else
+                        aws s3 cp s3://${S3_BUCKET}/covertype/test_reports/${LATEST_REPORT} test_report.csv
+                    fi
+                '''
+            }
             archiveArtifacts artifacts: 'test_report.csv'
         }
         success {

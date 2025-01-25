@@ -1,0 +1,20 @@
+[2025-01-21T19:47:51.660+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-01-21T19:47:51.795+0000] {taskinstance.py:2612} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: detect_data_drift_notify_retrain.send_email_drift_task manual__2025-01-21T19:11:02.156353+00:00 [queued]>
+[2025-01-21T19:47:51.877+0000] {taskinstance.py:2612} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: detect_data_drift_notify_retrain.send_email_drift_task manual__2025-01-21T19:11:02.156353+00:00 [queued]>
+[2025-01-21T19:47:51.878+0000] {taskinstance.py:2865} INFO - Starting attempt 1 of 2
+[2025-01-21T19:47:52.033+0000] {taskinstance.py:2888} INFO - Executing <Task(PythonOperator): send_email_drift_task> on 2025-01-21 19:11:02.156353+00:00
+[2025-01-21T19:47:52.101+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=443) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-01-21T19:47:52.116+0000] {standard_task_runner.py:72} INFO - Started process 448 to run task
+[2025-01-21T19:47:52.120+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'detect_data_drift_notify_retrain', 'send_email_drift_task', 'manual__2025-01-21T19:11:02.156353+00:00', '--job-id', '184', '--raw', '--subdir', 'DAGS_FOLDER/monitoring-dag.py', '--cfg-path', '/tmp/tmpwn0qlk4k']
+[2025-01-21T19:47:52.123+0000] {standard_task_runner.py:105} INFO - Job 184: Subtask send_email_drift_task
+[2025-01-21T19:47:52.393+0000] {task_command.py:467} INFO - Running <TaskInstance: detect_data_drift_notify_retrain.send_email_drift_task manual__2025-01-21T19:11:02.156353+00:00 [running]> on host d3de575648b4
+[2025-01-21T19:47:52.811+0000] {taskinstance.py:3131} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='RL' AIRFLOW_CTX_DAG_ID='detect_data_drift_notify_retrain' AIRFLOW_CTX_TASK_ID='send_email_drift_task' AIRFLOW_CTX_EXECUTION_DATE='2025-01-21T19:11:02.156353+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-01-21T19:11:02.156353+00:00'
+[2025-01-21T19:47:52.820+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2025-01-21T19:47:56.779+0000] {python.py:240} INFO - Done. Returned value was: None
+[2025-01-21T19:47:56.853+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2025-01-21T19:47:56.858+0000] {taskinstance.py:352} INFO - Marking task as SUCCESS. dag_id=detect_data_drift_notify_retrain, task_id=send_email_drift_task, run_id=manual__2025-01-21T19:11:02.156353+00:00, execution_date=20250121T191102, start_date=20250121T194751, end_date=20250121T194756
+[2025-01-21T19:47:57.008+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-01-21T19:47:57.096+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-01-21T19:47:57.149+0000] {standard_task_runner.py:217} INFO - Process not found (most likely exited), stop collecting metrics

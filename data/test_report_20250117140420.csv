@@ -1,0 +1,7 @@
+id,module,name,file,doc,markers,status,message,duration
+test.py::test_schema_consistency,test,test_schema_consistency,test.py,Vérifie que les deux datasets ont les mêmes colonnes,,passed,,0.0006365289996210777
+test.py::test_data_types,test,test_data_types,test.py,Vérifie que les types de données sont cohérents,,passed,,0.016511309000179608
+test.py::test_value_ranges,test,test_value_ranges,test.py,Vérifie que les nouvelles données sont dans les plages acceptables,,failed,"AssertionError: Valeurs trop basses dans Vertical_Distance_To_Hydrology
+assert -173 >= (-166 * 0.8)",0.019566498000131105
+test.py::test_missing_values,test,test_missing_values,test.py,Vérifie le pourcentage de valeurs manquantes,,passed,,0.07072914699983812
+test.py::test_statistical_distribution,test,test_statistical_distribution,test.py,Compare les distributions statistiques de base,,passed,,1.2470734420003282

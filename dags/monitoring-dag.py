@@ -180,10 +180,10 @@ def prepare_email_no_drift_content(**context):
 def send_email_with_smtp(**context):
     ti = context['ti']
 
-    to_email = "dsgattaca@gmail.com"
+    to_email = "Chatelain.kev@gmail.com"
     smtp_server = "smtp.gmail.com"
     smtp_port = 587
-    smtp_user = "dsgattaca@gmail.com"
+    smtp_user = "Chatelain.kev@gmail.com"
 
     smtp_password = Variable.get("gmail_password", default_var=None)
     if smtp_password is None:

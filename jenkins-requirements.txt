@@ -8,6 +8,7 @@ python-dotenv
 
 # Quality assurance (spécifique à Jenkins)
 pytest  #tests unitaires
+pytest-html
 black #formatage du code
 pylint #analyse statique du code
 psycopg2-binary #connexion à la base de données

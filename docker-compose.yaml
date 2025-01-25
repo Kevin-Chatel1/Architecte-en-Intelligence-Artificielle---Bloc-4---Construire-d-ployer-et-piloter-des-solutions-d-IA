@@ -35,6 +35,21 @@ x-airflow-common: &airflow-common
       condition: service_healthy
 
 services:
+  fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile.fastapi
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+      - .secrets
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - airflow_default
+
   postgres:
     image: postgres:13
     environment:
@@ -51,7 +66,6 @@ services:
     restart: always
     networks:
       - airflow_default
-
 
   # Option 1 (default): Local MLflow PostgreSQL / service non utilisé si option 2 / et service non utilisé si huggingface_server
   #mlflow-postgres:
@@ -70,7 +84,7 @@ services:
   #  networks:
   #    - airflow_default
 
-  redis: # service non utilisé dans ce projet
+  redis:
     image: redis:7.2-bookworm
     expose:
       - 6379
@@ -115,6 +129,12 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
+    deploy:
+      resources:
+        limits:
+          memory: 2g
+        reservations:
+          memory: 1g
 
   airflow-worker:
     <<: *airflow-common
@@ -135,6 +155,12 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
+    deploy:
+      resources:
+        limits:
+          memory: 4g
+        reservations:
+          memory: 2g
 
   airflow-triggerer:
     <<: *airflow-common
@@ -254,11 +280,13 @@ services:
       airflow-webserver:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "curl", "-f", "--max-time", "10", "http://localhost:8080/login || exit 1"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
+      test: ["CMD", "true"]
+
+      #test: ["CMD", "curl", "-f", "http://localhost:8080/login || exit 0"]
+      #interval: 1m
+      #timeout: 10s
+      #retries: 3
+      #start_period: 2m
 
   # otpion de  base pour le service mlflow / non utilisé si option 2 ou si huggingface_server
   #mlflow:

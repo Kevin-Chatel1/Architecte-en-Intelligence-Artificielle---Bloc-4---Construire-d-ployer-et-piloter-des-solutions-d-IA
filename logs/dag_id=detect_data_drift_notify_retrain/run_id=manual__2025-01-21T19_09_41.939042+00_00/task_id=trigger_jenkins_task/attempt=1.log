@@ -1,0 +1,21 @@
+[2025-01-21T19:43:45.052+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-01-21T19:43:45.205+0000] {taskinstance.py:2612} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: detect_data_drift_notify_retrain.trigger_jenkins_task manual__2025-01-21T19:09:41.939042+00:00 [queued]>
+[2025-01-21T19:43:45.258+0000] {taskinstance.py:2612} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: detect_data_drift_notify_retrain.trigger_jenkins_task manual__2025-01-21T19:09:41.939042+00:00 [queued]>
+[2025-01-21T19:43:45.260+0000] {taskinstance.py:2865} INFO - Starting attempt 1 of 2
+[2025-01-21T19:43:45.720+0000] {taskinstance.py:2888} INFO - Executing <Task(PythonOperator): trigger_jenkins_task> on 2025-01-21 19:09:41.939042+00:00
+[2025-01-21T19:43:45.861+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=305) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-01-21T19:43:45.866+0000] {standard_task_runner.py:72} INFO - Started process 322 to run task
+[2025-01-21T19:43:45.850+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'detect_data_drift_notify_retrain', 'trigger_jenkins_task', 'manual__2025-01-21T19:09:41.939042+00:00', '--job-id', '172', '--raw', '--subdir', 'DAGS_FOLDER/monitoring-dag.py', '--cfg-path', '/tmp/tmpxjpxd8_r']
+[2025-01-21T19:43:45.872+0000] {standard_task_runner.py:105} INFO - Job 172: Subtask trigger_jenkins_task
+[2025-01-21T19:43:46.202+0000] {task_command.py:467} INFO - Running <TaskInstance: detect_data_drift_notify_retrain.trigger_jenkins_task manual__2025-01-21T19:09:41.939042+00:00 [running]> on host d3de575648b4
+[2025-01-21T19:43:46.704+0000] {taskinstance.py:3131} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='RL' AIRFLOW_CTX_DAG_ID='detect_data_drift_notify_retrain' AIRFLOW_CTX_TASK_ID='trigger_jenkins_task' AIRFLOW_CTX_EXECUTION_DATE='2025-01-21T19:09:41.939042+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-01-21T19:09:41.939042+00:00'
+[2025-01-21T19:43:46.713+0000] {taskinstance.py:731} INFO - ::endgroup::
+[2025-01-21T19:43:50.299+0000] {monitoring-dag.py:155} INFO - Jenkins pipeline triggered successfully
+[2025-01-21T19:43:50.301+0000] {python.py:240} INFO - Done. Returned value was: None
+[2025-01-21T19:43:50.356+0000] {taskinstance.py:340} INFO - ::group::Post task execution logs
+[2025-01-21T19:43:50.357+0000] {taskinstance.py:352} INFO - Marking task as SUCCESS. dag_id=detect_data_drift_notify_retrain, task_id=trigger_jenkins_task, run_id=manual__2025-01-21T19:09:41.939042+00:00, execution_date=20250121T190941, start_date=20250121T194345, end_date=20250121T194350
+[2025-01-21T19:43:50.511+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-01-21T19:43:50.582+0000] {taskinstance.py:3900} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-01-21T19:43:50.617+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

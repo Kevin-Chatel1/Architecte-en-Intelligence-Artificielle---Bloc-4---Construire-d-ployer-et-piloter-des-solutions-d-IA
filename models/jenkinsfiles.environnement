@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/Rom1Legrand/IAI-B4-MLops_pipeline_CoverTypeForest.git'
+                    url: 'git@github.com:Kevin-Chatel1/Architecte-en-Intelligence-Artificielle---Bloc-4---Construire-d-ployer-et-piloter-des-solutions-d-IA.git'
             }
         }
 
